@@ -94,7 +94,7 @@ type Screen    = { id: number; name?: string; theatre?: Theatre }
 type Theatre   = { id: number; name: string; address?: string; city?: City }
 type Show      = { id: number; movie?: Movie; screen?: Screen; showDate?: string; startTime?: TimeObj; endTime?: TimeObj; ticketPrice?: number }
 type TimeObj   = { hour: number; minute: number } | string
-type Seat      = { id: number; seatNumber: string; row?: string; column?: number; seatType?: 'REGULAR' | 'PREMIUM' | 'VIP' }
+type Seat      = { id: number; seatNumber: string; row?: string; column?: number; seatType?: 'REGULAR' | 'PREMIUM' | 'VIP'; available?: boolean }
 type Booking   = { id: number; show?: Show; bookedSeats?: Seat[]; totalPrice?: number; status?: 'CONFIRMED' | 'CANCELLED'; bookedAt?: string }
 
 // ─── API helpers ─────────────────────────────────────────────────
@@ -197,7 +197,8 @@ export default function CinemaApp() {
   const [cities,   setCities]   = useState<City[]>([])
   const [movies,   setMovies]   = useState<Movie[]>([])
   const [theatres, setTheatres] = useState<Theatre[]>([])
-  const [shows,    setShows]    = useState<Show[]>([])
+  const [dashboardShows, setDashboardShows] = useState<Show[]>([])
+  const [detailShows,    setDetailShows]    = useState<Show[]>([])
 
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null)
   const [selectedShow,  setSelectedShow]  = useState<Show  | null>(null)
@@ -239,6 +240,7 @@ export default function CinemaApp() {
   // overwriting the fresh data.
   const loadToken = useRef(0)
   const catalogToken = useRef(0)
+  const detailHistory = useRef(false)
 
   // Keep movies in a ref so loadCityData always reads the latest list,
   // even when called from a stale closure (effect or navigation handler).
@@ -258,6 +260,18 @@ export default function CinemaApp() {
 
   // ── load public data on mount ────────────────────────────────
   useEffect(() => { void bootstrap() }, [])
+
+  // Detail is a local SPA view, so browser Back uses the same cleanup as the in-app button.
+  useEffect(() => {
+    function handlePopState() {
+      if (view !== 'detail') return
+      detailHistory.current = false
+      setSelectedMovie(null)
+      setView('home')
+    }
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
+  }, [view])
 
   // ── re-fetch city theatres + shows when city, date, or selected movie changes ─
   // selectedDate is derived from dashboardDate or detailDate depending on view,
@@ -356,7 +370,8 @@ export default function CinemaApp() {
 
     setLoadingCity(true)
     setTheatres([])
-    setShows([])
+    if (movieId) setDetailShows([])
+    else setDashboardShows([])
     try {
       const cityTheatres = await apiFetch<Theatre[]>(`/theatres/city/${cid}`)
 
@@ -391,7 +406,9 @@ export default function CinemaApp() {
       if (myToken !== loadToken.current) return
 
       // Filter to theatres in this city only.
-      setShows(flat.filter(s => theatreIds.has(s.screen?.theatre?.id ?? -1)))
+      const cityShows = flat.filter(s => theatreIds.has(s.screen?.theatre?.id ?? -1))
+      if (movieId) setDetailShows(cityShows)
+      else setDashboardShows(cityShows)
     } catch (e) {
       if (myToken !== loadToken.current) return   // stale — ignore the error too
       notify(e instanceof Error ? e.message : 'Failed to load city data', false)
@@ -406,11 +423,19 @@ export default function CinemaApp() {
     setAvailableSeats([])
     setSelectedSeats([])
     try {
-      const [seats, show] = await Promise.all([
+      const show = await apiFetch<Show>(`/shows/${showId}`)
+      const screenId = show.screen?.id
+      if (!screenId) throw new Error('This show has no screen assigned')
+
+      const [allSeats, availableSeats] = await Promise.all([
+        apiFetch<Seat[]>(`/seats/screen/${screenId}`),
         apiFetch<Seat[]>(`/bookings/show/${showId}/available-seats`),
-        apiFetch<Show>(`/shows/${showId}`),
       ])
-      setAvailableSeats(seats)
+      const availableSeatIds = new Set(availableSeats.map(seat => seat.id))
+      setAvailableSeats(allSeats.map(seat => ({
+        ...seat,
+        available: availableSeatIds.has(seat.id),
+      })))
       setSelectedShow(show)
     } catch (e) {
       notify(e instanceof Error ? e.message : 'Failed to load seats', false)
@@ -475,6 +500,16 @@ export default function CinemaApp() {
     setDetailDate(anchorDate)
   }
 
+  function backToDashboard() {
+    setSelectedMovie(null)
+    setSelectedShow(null)
+    setView('home')
+    if (detailHistory.current && window.history.state?.cinestageView === 'detail') {
+      detailHistory.current = false
+      window.history.back()
+    }
+  }
+
   function openMovie(movie: Movie) {
     // Seed the detail page with the dashboard's current date so the user
     // sees a consistent starting point, but mutations on the detail page
@@ -482,6 +517,8 @@ export default function CinemaApp() {
     setDetailDate(dashboardDate)
     setSelectedMovie(movie)
     setSelectedShow(null)
+    window.history.pushState({ ...window.history.state, cinestageView: 'detail' }, '')
+    detailHistory.current = true
     void apiFetch<Movie>(`/movies/${movie.id}`)
       .then(fresh => setSelectedMovie(fresh))
       .catch(() => { /* keep the list copy */ })
@@ -553,12 +590,12 @@ export default function CinemaApp() {
   )
 
   const cityShows = useMemo(
-    () => shows.filter(s =>
+    () => dashboardShows.filter(s =>
       (genreFilter === 'All' || s.movie?.genre === genreFilter) &&
       (languageFilter === 'All' || s.movie?.language === languageFilter) &&
       (s.movie?.title?.toLowerCase().includes(search.toLowerCase()) ?? true)
     ),
-    [shows, search, genreFilter, languageFilter]
+    [dashboardShows, search, genreFilter, languageFilter]
   )
 
   const currentCity = cities.find(c => c.id === cityId)
@@ -608,12 +645,12 @@ export default function CinemaApp() {
             cities={cities}
             cityId={cityId}
             currentCity={currentCity}
-            shows={shows}
+            shows={detailShows}
             loading={loadingCity}
             selectedDate={detailDate}
             onCityChange={handleCityChange}
             onDateChange={setDetailDate}
-            onBack={() => setView('home')}
+            onBack={backToDashboard}
             onBookNow={requestBooking}
           />
         )}
@@ -1253,6 +1290,11 @@ function SeatSelectionPage({
     return Array.from(map.entries()).sort(([a], [b]) => a.localeCompare(b))
   }, [seats])
 
+  const maxColumn = useMemo(
+    () => Math.max(1, ...seats.map(seat => seat.column ?? 0)),
+    [seats]
+  )
+
   const totalPrice = (show.ticketPrice ?? 0) * selectedSeats.length
 
   return (
@@ -1283,12 +1325,13 @@ function SeatSelectionPage({
                 {rows.map(([rowLabel, rowSeats]) => (
                   <div key={rowLabel} style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
                     <span style={{ width: 20, fontSize: 11, color: 'var(--text-muted)', fontWeight: 700, flexShrink: 0 }}>{rowLabel}</span>
-                    <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', flex: 1 }}>
-                      {rowSeats.sort((a, b) => (a.column ?? 0) - (b.column ?? 0)).map(s => (
+                    <div style={{ display: 'grid', gridTemplateColumns: `repeat(${maxColumn}, minmax(0, 1fr))`, gap: 6, flex: 1 }}>
+                      {[...rowSeats].sort((a, b) => (a.column ?? 0) - (b.column ?? 0)).map((s, index) => (
                         <button
                           key={s.id}
                           className={`seat-btn${selectedSeats.includes(s.id) ? ' selected' : ''}`}
-                          style={{ minWidth: 40 }}
+                          style={{ minWidth: 40, gridColumn: s.column ?? index + 1 }}
+                          disabled={!s.available}
                           onClick={() => onToggleSeat(s.id)}
                           aria-label={`Seat ${s.seatNumber}`}
                           aria-pressed={selectedSeats.includes(s.id)}
@@ -1302,11 +1345,13 @@ function SeatSelectionPage({
               </div>
             ) : (
               // flat grid
-              <div className="seat-grid">
-                {seats.map(s => (
+              <div className="seat-grid" style={{ gridTemplateColumns: `repeat(${maxColumn}, minmax(0, 1fr))` }}>
+                {[...seats].sort((a, b) => (a.column ?? 0) - (b.column ?? 0)).map((s, index) => (
                   <button
                     key={s.id}
                     className={`seat-btn${selectedSeats.includes(s.id) ? ' selected' : ''}`}
+                    style={{ gridColumn: s.column ?? index + 1 }}
+                    disabled={!s.available}
                     onClick={() => onToggleSeat(s.id)}
                     aria-label={`Seat ${s.seatNumber}`}
                     aria-pressed={selectedSeats.includes(s.id)}
