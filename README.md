@@ -195,5 +195,3 @@ pnpm typecheck
 # or
 npm run typecheck
 ```
-
----
