@@ -170,6 +170,8 @@ type Booking  = { id: number; user?: BookUser; show?: Show; totalPrice?: number;
 type Tab = 'Overview' | 'Movies' | 'Cities' | 'Theatres' | 'Screens' | 'Seats' | 'Shows' | 'Bookings' | 'Users'
 
 // ─── API ──────────────────────────────────────────────────────────
+const ADMIN_TOKEN_KEY = 'cinestage-admin-token'
+
 function apiBase() {
   return (process.env.NEXT_PUBLIC_API_BASE_URL ?? '').replace(/\/$/, '')
 }
@@ -177,10 +179,22 @@ function apiUrl(path: string) {
   return `${apiBase()}${path.startsWith('/api') ? path : `/api${path}`}`
 }
 async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
+  const token = typeof window !== 'undefined' ? sessionStorage.getItem(ADMIN_TOKEN_KEY) : null
+
   const res = await fetch(apiUrl(path), {
     ...init,
-    headers: { 'Content-Type': 'application/json', ...(init?.headers ?? {}) },
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      ...(init?.headers ?? {}),
+    },
   })
+
+  if (res.status === 401 && typeof window !== 'undefined') {
+    sessionStorage.removeItem(ADMIN_TOKEN_KEY)
+    window.dispatchEvent(new Event('admin-auth-expired'))
+  }
+
   const text = await res.text()
   let data: unknown = null
   try { data = text ? JSON.parse(text) : null } catch { data = text }
