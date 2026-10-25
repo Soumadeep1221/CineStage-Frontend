@@ -1,0 +1,125 @@
+{
+  "planHash": "47933901e576aa6f0c1b582dd58a4f5d8536367234b1016f8ee44d2950b522b8",
+  "phase": "standalone",
+  "recordedAtUtc": "2026-10-25T10:34:35.0400323Z",
+  "retryCount": 0,
+  "resetBaseline": false,
+  "complete": true,
+  "result": {
+    "setupSucceeded": true,
+    "setupDurationMs": 1614,
+    "setupFailureOutput": null,
+    "assertions": [
+      {
+        "name": "tsc-no-emit",
+        "kind": "process",
+        "verificationMethod": "exit-code",
+        "passed": true,
+        "timedOut": false,
+        "skipped": false,
+        "skippedReason": null,
+        "exitCode": 0,
+        "outputSample": "$ tsc --noEmit\r\n",
+        "durationMs": 3678
+      },
+      {
+        "name": "production-build",
+        "kind": "process",
+        "verificationMethod": "exit-code",
+        "passed": true,
+        "timedOut": false,
+        "skipped": false,
+        "skippedReason": null,
+        "exitCode": 0,
+        "outputSample": "$ next build\r\n\u25B2 Next.js 16.3.3 (Turbopack)\r\n- Environments: .env.local\r\n\u2713 Running next.config.mjs took 33ms\r\n\r\n  Creating an optimized production build ...\r\n\u2713 Compiled successfully in 3.5s\r\n  Running TypeScript ...\r\n  Finished TypeScript in 5.0s ...\r\n  Collecting page data using 5 workers ...\r\n  Generating static pages using 5 workers (0/4) ...\r\n  Generating static pages using 5 workers (1/4) \r\n  Generating static pages using 5 workers (2/4) \r\n  Generating static pages using 5 workers (3/4) \r\n\u2713 Generating static pages using 5 workers (4/4) in 1179ms\r\n  Finalizing page optimization ...\r\n\r\nRoute (app)\r\n\u250C \u25CB /\r\n\u251C \u25CB /_not-found\r\n\u2514 \u25CB /admin\r\n\r\n\r\n\u25CB  (Static)  prerendered as static content\r\n\r\n",
+        "durationMs": 17367
+      },
+      {
+        "name": "production-server-serves-home",
+        "kind": "http-probe",
+        "verificationMethod": "http-status",
+        "passed": true,
+        "timedOut": false,
+        "skipped": false,
+        "skippedReason": null,
+        "exitCode": null,
+        "outputSample": "HTTP 200\n\u003C!DOCTYPE html\u003E\u003Chtml lang=\u0022en\u0022 data-scroll-behavior=\u0022smooth\u0022\u003E\u003Chead\u003E\u003Cmeta charSet=\u0022utf-8\u0022/\u003E\u003Cmeta name=\u0022viewport\u0022 content=\u0022width=device-width, initial-scale=1\u0022/\u003E\u003Clink rel=\u0022stylesheet\u0022 href=\u0022/_next/static/chunks/app_globals_0yg4wg8.css\u0022 data-precedence=\u0022next_static/chunks/app_globals_0yg4wg8.css\u0022/\u003E\u003Clink rel=\u0022preload\u0022 as=\u0022script\u0022 fetchPriority=\u0022low\u0022 href=\u0022/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1di75ot._.js\u0022/\u003E\u003Cscript src=\u0022/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/node_modules_next_dist_client_0_90u2t._.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/_1anvha4._.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/turbopack-_08bm286._.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/_219uq1s._.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/node_modules_next_dist_20wefz_._.js\u0022 async=\u0022\u0022 crossorigin=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/components_cinema-app_tsx_16819t1._.js\u0022 async=\u0022\u0022 crossorigin=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/node_modules_02nzsv4._.js\u0022 async=\u0022\u0022 crossorigin=\u0022\u0022\u003E\u003C/script\u003E\u003Cmeta name=\u0022theme-color\u0022 content=\u0022#f0f4f8\u0022 media=\u0022(prefers-color-scheme: light)\u0022/\u003E\u003Cmeta name=\u0022theme-color\u0022 content=\u0022#0f1117\u0022 media=\u0022(prefers-color-scheme: dark)\u0022/\u003E\u003Ctitle\u003ECineStage \u2014 Your night at the movies\u003C/title\u003E\u003Cmeta name=\u0022description\u0022 content=\u0022Discover movies, choose your seats, and book your next big-screen moment.\u0022/\u003E\u003Cscript\u003E\n(function(){\n  try {\n    var t = localStorage.getItem(\u0027cinestage-theme\u0027);\n    if (t === \u0027light\u0027 || t === \u0027dark\u0027) {\n      document.documentElement.dataset.theme = t;\n    }\n  } catch(e){}\n})();\n\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/node_modules_next_dist_build_polyfills_polyfill-nomodule.js\u0022 noModule=\u0022\u0022\u003E\u003C/script\u003E\u003C/head\u003E\u003Cbody\u003E\u003Cdiv hidden=\u0022\u0022\u003E\u003C!--$--\u003E\u003C!--/$--\u003E\u003C/div\u003E\u003Cdiv class=\u0022app-shell\u0022\u003E\u003Cheader class=\u0022app-header\u0022\u003E\u003Cbutton class=\u0022brand-btn\u0022 aria-label=\u0022Go home\u0022\u003E\u003Cspan class=\u0022brand-icon\u0022\u003E\u003Csvg xmlns=\u0022http://www.w3.org/2000/svg\u0022 width=\u002218\u0022 height=\u002218\u0022 viewBox=\u00220 0 24 24\u0022 fill=\u0022none\u0022 stroke=\u0022currentColor\u0022 stroke-width=\u00222\u0022 stroke-linecap=\u0022round\u0022 stroke-linejoin=\u0022round\u0022 class=\u0022lucide lucide-clapperboard\u0022 aria-hidden=\u0022true\u0022\u003E\u003Cpath d=\u0022m12.296 3.464 3.02 3.956\u0022\u003E\u003C/path\u003E\u003Cpath d=\u0022M20.2 6 3 11l-.9-2.4c-.3-1.1.3-2.2 1.3-2.5l13.5-4c1.1-.3 2.2.3 2.5 1.3z\u0022\u003E\u003C/path\u003E\u003Cpath d=\u0022M3 11h18v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\u0022\u003E\u003C/path\u003E\u003Cpath d=\u0022m6.18 5.276 3.1 3.899\u0022\u003E\u003C/path\u003E\u003C/svg\u003E\u003C/span\u003E\u003Cspan class=\u0022brand-name\u0022\u003ECine\u003Cem\u003EStage\u003C/em\u003E\u003C/span\u003E\u003C/button\u003E\u003Cdiv class=\u0022header-search\u0022 role=\u0022search\u0022\u003E\u003Csvg xmlns=\u0022http://www.w3.org/2000/svg\u0022 width=\u002215\u0022 height=\u002215\u0022 viewBox=\u00220 0 24 24\u0022 fill=\u0022none\u0022 stroke=\u0022currentColor\u0022 stroke-width=\u00222\u0022 stroke-linecap=\u0022round\u0022 stroke-linejoin=\u0022round\u0022 class=\u0022lucide lucide-search\u0022 aria-hidden=\u0022true\u0022\u003E\u003Cpath d=\u0022m21 21-4.34-4.34\u0022\u003E\u003C/path\u003E\u003Ccircle cx=\u002211\u0022 cy=\u002211\u0022 r=\u00228\u0022\u003E\u003C/circle\u003E\u003C/svg\u003E\u003Cinput placeholder=\u0022Search movies\u2026\u0022 aria-label=\u0022Search movies\u0022 value=\u0022\u0022/\u003E\u003C/div\u003E\u003Cnav class=\u0022header-nav\u0022\u003E\u003Ca href=\u0022/admin\u0022 class=\u0022nav-link\u0022\u003EAdmin\u003C/a\u003E\u003Cbutton class=\u0022icon-btn\u0022 title=\u0022Switch to light mode\u0022 aria-label=\u0022Toggle theme\u0022\u003E\u003Csvg xmlns=\u0022http://www.w3.org/2000/svg\u0022 width=\u002217\u0022 height=\u002217\u0022 viewBox=\u00220 0 24 24\u0022 fill=\u0022none\u0022 stroke=\u0022currentColor\u0022 stroke-width=\u00222\u0022 stroke-linecap=\u0022round\u0022 stroke-linejoin=\u0022round\u0022 class=\u0022lucide lucide-sun\u0022 aria-hidden=\u0022true\u0022\u003E\u003Ccircle cx=\u002212\u0022 cy=\u002212\u0022 r=\u00224\u0022\u003E\u003C/circle\u003E\u003Cpath d=\u0022M12 2v2\u0022\u003E\u003C/path\u003E\u003Cpath d=\u0022M12 20v2\u0022\u003E\u003C/path\u003E\u003Cpath d=\u0022m4.93 4.93 1.41 1.41\u0022\u003E\u003C/path\u003E\u003Cpath d=\u0022m17.66 17.66 1.41 1.41\u0022\u003E\u003C/path\u003E\u003Cpath d=\u0022M2 12h2\u0022\u003E\u003C/path\u003E\u003Cpath d=\u0022M20 12h2\u0022\u003E\u003C/path\u003E\u003Cpath d=\u0022m6.34 17.6\n\u2026[truncated]",
+        "durationMs": 143
+      },
+      {
+        "name": "production-server-serves-admin",
+        "kind": "http-probe",
+        "verificationMethod": "http-status",
+        "passed": true,
+        "timedOut": false,
+        "skipped": false,
+        "skippedReason": null,
+        "exitCode": null,
+        "outputSample": "HTTP 200\n\u003C!DOCTYPE html\u003E\u003Chtml lang=\u0022en\u0022 data-scroll-behavior=\u0022smooth\u0022\u003E\u003Chead\u003E\u003Cmeta charSet=\u0022utf-8\u0022/\u003E\u003Cmeta name=\u0022viewport\u0022 content=\u0022width=device-width, initial-scale=1\u0022/\u003E\u003Clink rel=\u0022stylesheet\u0022 href=\u0022/_next/static/chunks/app_globals_0yg4wg8.css\u0022 data-precedence=\u0022next_static/chunks/app_globals_0yg4wg8.css\u0022/\u003E\u003Clink rel=\u0022preload\u0022 as=\u0022script\u0022 fetchPriority=\u0022low\u0022 href=\u0022/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1di75ot._.js\u0022/\u003E\u003Cscript src=\u0022/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/node_modules_next_dist_client_0_90u2t._.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/_1anvha4._.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/turbopack-_08bm286._.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/_1fav_h-._.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/node_modules_next_dist_20wefz_._.js\u0022 async=\u0022\u0022 crossorigin=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/_1p42crw._.js\u0022 async=\u0022\u0022 crossorigin=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/node_modules_1ezcj3v._.js\u0022 async=\u0022\u0022 crossorigin=\u0022\u0022\u003E\u003C/script\u003E\u003Cmeta name=\u0022theme-color\u0022 content=\u0022#f0f4f8\u0022 media=\u0022(prefers-color-scheme: light)\u0022/\u003E\u003Cmeta name=\u0022theme-color\u0022 content=\u0022#0f1117\u0022 media=\u0022(prefers-color-scheme: dark)\u0022/\u003E\u003Ctitle\u003ECineStage \u2014 Your night at the movies\u003C/title\u003E\u003Cmeta name=\u0022description\u0022 content=\u0022Discover movies, choose your seats, and book your next big-screen moment.\u0022/\u003E\u003Cscript\u003E\n(function(){\n  try {\n    var t = localStorage.getItem(\u0027cinestage-theme\u0027);\n    if (t === \u0027light\u0027 || t === \u0027dark\u0027) {\n      document.documentElement.dataset.theme = t;\n    }\n  } catch(e){}\n})();\n\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/node_modules_next_dist_build_polyfills_polyfill-nomodule.js\u0022 noModule=\u0022\u0022\u003E\u003C/script\u003E\u003C/head\u003E\u003Cbody\u003E\u003Cdiv hidden=\u0022\u0022\u003E\u003C!--$--\u003E\u003C!--/$--\u003E\u003C/div\u003E\u003C!--$--\u003E\u003C!--/$--\u003E\u003Cscript id=\u0022_R_\u0022\u003Eself.__next_r=\u0022gBjPRfh-UmPzm7eH8o-G-\u0022;if(document.cookie.indexOf(\u0027next-instant-navigation-testing=\u0027)\u003E-1){self.__next_instant_test=fetch(location.pathname\u002B\u0027?_rsc=xhdorIanPcIpYSsE\u0027,{credentials:\u0027same-origin\u0027,headers:{\u0027rsc\u0027:\u00271\u0027,\u0027next-router-prefetch\u0027:\u00271\u0027,\u0027next-router-segment-prefetch\u0027:\u0027/_full\u0027}})}\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1di75ot._.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript\u003E(self.__next_f=self.__next_f||[]).push([0])\u003C/script\u003E\u003Cscript\u003Eself.__next_f.push([1,\u00227:I[\\\u0022[project]/node_modules/next/dist/next-devtools/userspace/app/segment-explorer-node.js [app-client] (ecmascript)\\\u0022,[\\\u0022/_next/static/chunks/node_modules_next_dist_20wefz_._.js\\\u0022],\\\u0022SegmentViewNode\\\u0022]\\n9:\\\u0022$Sreact.fragment\\\u0022\\n1d:I[\\\u0022[project]/node_modules/next/dist/client/components/layout-router.js [app-client] (ecmascript)\\\u0022,[\\\u0022/_next/static/chunks/node_modules_next_dist_20wefz_._.js\\\u0022],\\\u0022default\\\u0022]\\n1f:I[\\\u0022[project]/node_modules/next/dist/client/components/render-from-template-context.js [app-client] (ecmascript)\\\u0022,[\\\u0022/_next/static/chunks/node_modules_next_dist_20wefz_._.js\\\u0022],\\\u0022default\\\u0022]\\n36:I[\\\u0022[project]/node_modules/next/dist/client/components/client-page.js [app-client] (ecmascript)\\\u0022,[\\\u0022/_next/static/chunks/node_modules_next_dist_20wefz_._.js\\\u0022],\\\u0022ClientPageRoot\\\u0022]\\n37:I[\\\u0022[project]/app/admin/page.tsx [app-client] (ecmascript)\\\u0022,[\\\u0022/_next/static/chunks/node_modules_next_dist_20wefz_._.js\\\u0022,\\\u0022/_next/static/chunks/_1p42crw._.js\\\u0022,\\\u0022/_next/static/chunks/node_modules_1ezcj3v._.js\\\u0022],\\\u0022default\\\u0022]\\n3f:I[\\\u0022[project]/node_modules/next/dist/lib/framework/boundary-components.js [app-client] (ecmascript)\\\u0022,[\\\u0022/_next/static/chunks/node_modules_next_dist_20\n\u2026[truncated]",
+        "durationMs": 95
+      }
+    ],
+    "executions": [
+      {
+        "source": "setup[0]",
+        "resolvedExecutable": "C:\\Users\\SOUMADEEP\\AppData\\Roaming\\npm\\pnpm.CMD",
+        "args": [
+          "install",
+          "--frozen-lockfile"
+        ],
+        "cwd": "D:\\BMS-System-Frontend",
+        "env": {},
+        "prependPath": [],
+        "platform": "win32"
+      },
+      {
+        "source": "tsc-no-emit",
+        "resolvedExecutable": "C:\\Users\\SOUMADEEP\\AppData\\Roaming\\npm\\pnpm.CMD",
+        "args": [
+          "run",
+          "typecheck"
+        ],
+        "cwd": "D:\\BMS-System-Frontend",
+        "env": {},
+        "prependPath": [],
+        "platform": "win32"
+      },
+      {
+        "source": "production-build",
+        "resolvedExecutable": "C:\\Users\\SOUMADEEP\\AppData\\Roaming\\npm\\pnpm.CMD",
+        "args": [
+          "run",
+          "build"
+        ],
+        "cwd": "D:\\BMS-System-Frontend",
+        "env": {},
+        "prependPath": [],
+        "platform": "win32"
+      },
+      {
+        "source": "production-server-serves-home",
+        "resolvedExecutable": "C:\\Users\\SOUMADEEP\\AppData\\Roaming\\npm\\pnpm.CMD",
+        "args": [
+          "run",
+          "start"
+        ],
+        "cwd": "D:\\BMS-System-Frontend",
+        "env": {},
+        "prependPath": [],
+        "platform": "win32"
+      },
+      {
+        "source": "production-server-serves-admin",
+        "resolvedExecutable": "C:\\Users\\SOUMADEEP\\AppData\\Roaming\\npm\\pnpm.CMD",
+        "args": [
+          "run",
+          "start"
+        ],
+        "cwd": "D:\\BMS-System-Frontend",
+        "env": {},
+        "prependPath": [],
+        "platform": "win32"
+      }
+    ]
+  }
+}

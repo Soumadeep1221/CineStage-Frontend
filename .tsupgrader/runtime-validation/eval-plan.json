@@ -1,0 +1,67 @@
+{
+  "generatedAt": "2026-10-25T10:33:00Z",
+  "generatedOnPlatform": "win32",
+  "projectType": "webapp",
+  "setup": [
+    {
+      "command": "pnpm",
+      "args": [
+        "install",
+        "--frozen-lockfile"
+      ],
+      "timeoutSeconds": 600
+    }
+  ],
+  "assertions": [
+    {
+      "name": "tsc-no-emit",
+      "kind": "process",
+      "command": "pnpm",
+      "args": [
+        "run",
+        "typecheck"
+      ],
+      "verificationMethod": "exit-code",
+      "expected": "0",
+      "timeoutSeconds": 180
+    },
+    {
+      "name": "production-build",
+      "kind": "process",
+      "command": "pnpm",
+      "args": [
+        "run",
+        "build"
+      ],
+      "verificationMethod": "exit-code",
+      "expected": "0",
+      "timeoutSeconds": 300
+    },
+    {
+      "name": "production-server-serves-home",
+      "kind": "http-probe",
+      "startCommand": "pnpm",
+      "startArgs": [
+        "run",
+        "start"
+      ],
+      "url": "http://localhost:3000/",
+      "verificationMethod": "http-status",
+      "expected": "200",
+      "timeoutSeconds": 120
+    },
+    {
+      "name": "production-server-serves-admin",
+      "kind": "http-probe",
+      "startCommand": "pnpm",
+      "startArgs": [
+        "run",
+        "start"
+      ],
+      "url": "http://localhost:3000/admin",
+      "verificationMethod": "http-status",
+      "expected": "200",
+      "timeoutSeconds": 120
+    }
+  ]
+}
