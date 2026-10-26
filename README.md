@@ -5,6 +5,10 @@
 </p>
 
 <p align="center">
+  <a href="https://cinestage-soumadeep1221.netlify.app"><strong>🌐 View the live application</strong></a>
+</p>
+
+<p align="center">
   <img src="https://img.shields.io/badge/Next.js%2016-000000?style=flat&logo=next.js&logoColor=white" />
   <img src="https://img.shields.io/badge/React%2019-61DAFB?style=flat&logo=react&logoColor=black" />
   <img src="https://img.shields.io/badge/TypeScript%205.7-3178C6?style=flat&logo=typescript&logoColor=white" />
@@ -28,6 +32,15 @@ It's built to talk to the **CineStage backend** — a Spring Boot REST API handl
 |---|---|
 | **Backend** | [CineStage Backend](https://github.com/Soumadeep1221/CineStage-Backend) — Spring Boot REST API this app consumes |
 | **Frontend** (this repo) | Next.js client — customer booking flow + admin panel |
+
+## 🌐 Live Deployment
+
+The application is fully deployed and available at:
+
+**[https://cinestage-soumadeep1221.netlify.app](https://cinestage-soumadeep1221.netlify.app)**
+
+- Customer application: [Open CineStage](https://cinestage-soumadeep1221.netlify.app)
+- Admin panel: [Open the admin panel](https://cinestage-soumadeep1221.netlify.app/admin)
 
 ---
 
